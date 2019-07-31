@@ -61,7 +61,7 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"onclick="event.preventDefault();ssdocument.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -77,7 +77,7 @@
                 </div>
             </nav>
             {{-- ここまでナビゲーションバー --}}
-
+            
             <main class="py-4">
                 {{-- コンテンツをここに入れるため、@yieldで空けておきます。 --}}
                 @yield('content')
