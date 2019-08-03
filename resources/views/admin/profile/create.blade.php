@@ -7,11 +7,11 @@
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <h2>プロフィール</h2>
-                <form action="{{ action('Admin\ProfileController@create')}}" method="post">
+                <form action="{{ action('Admin\ProfileController@create')}}" method="post" enctype="multipart/form-data">
                     
                     @if (count($errors) > 0)
                         <ul>
-                            @foreach($errors>-all() as $e)
+                            @foreach($errors->all() as $e)
                                 <li>{{ $e }}</li>
                             @endforeach
                         </ul>
@@ -27,8 +27,8 @@
                     <div class="form-group row">
                         <label class="col-md-2" for="gender">性別:</label>
                         <div class="col-md-10 radio">
-                            <label><input type="radio" name="gender"> 男性</label>
-                            <label><input type="radio" name="gender"> 女性</label>
+                            <label><input type="radio" name="gender" value="男性"> 男性</label>
+                            <label><input type="radio" name="gender" value="女性"> 女性</label>
                         </div>
                     </div>
                     
