@@ -4,56 +4,60 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 use App\Profile;
+use App\User;
+
 
 class ProfileController extends Controller
 {
     //addアクション追加
     public function add()
     {
-        return view('admin.profile.create');
+        $user = Auth::user();
+
+        return view('admin.profile.create', ['user' => $user]);
     }
     
     //createアクション追加    
     public function create(Request $request)
     {
-        // Validationを行う
-        $this->validate($request, Profile::$rules);
+            // Validationを行う
+            $this->validate($request, Profile::$rules);
         
-        $profile = new Profile;
-        $form = $request->all();
+            $profile = new Profile;
         
-        unset($form['_token']);
+            $form = $request->all();
         
-        $profile->fill($form);
-        $profile->save();
+            unset($form['_token']);
         
-        return redirect('admin/profile/create');
-        
+            $profile->fill($form);
+            $profile->save();
+            
+            return redirect('admin/profile/create');
+            
     }
     
     public function index(Request $request)
     {
-        $cond_name = $request->cond_name;
-        if ($cond_name != '') {
-            $posts = Profile::where('name',$cond_name)->get();
-        }   else {
-            $posts = Profile::all();
-        }
-        return view('admin.profile.index', ['posts' => $posts, 'cond_name' => $cond_name]);
+        $user = Auth::user();
+        $profile = Profile::where('user_id',$user->id)->latest()->first();
+        
+        return view('admin.profile.index', ['user' => $user, 'profile' => $profile]);
     }
     
     
     //editアクション追加
     public function edit(Request $request)
     {
+        $user = Auth::user();
         //Profile Modelからデータを取得する
-        $profile = Profile::find($request->id);
+        $profile = Profile::where('user_id',$user->id)->latest()->first();
         if (empty($profile)){
             abort(404);
         }
-        return view('admin.profile.edit',['profile_form' => $profile]);
+        return view('admin.profile.edit',['profile_form' => $profile, 'user'=> $user ]);
     }
     
     
@@ -68,12 +72,12 @@ class ProfileController extends Controller
         
         //送信されてきたフォームデータを格納する
         $profile_form = $request->all();
-        
         unset($profile_form['_token']);
         
+        //viewファイルにカラムidが記述されているときにfillメソッドを使う
         $profile->fill($profile_form)->save();
         
-        return redirect('admin/profile/create');
+        return redirect('admin/profile');
     }
     
 }

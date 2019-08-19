@@ -20,8 +20,9 @@
                     <div class="form-group row">
                         <label class="col-md-2" for="name">氏名:</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="name" value="{{ $profile_form->name }}">
+                            <p>{{ $user->name }}</p>
                         </div>
+                        <input type="hidden" name="user_id" value="{{ $user->id }}">
                     </div>
                     
                     <div class="form-group row">
@@ -45,6 +46,7 @@
                             <textarea class="form-control" name="introduction" rows="20">{{ $profile_form->introduction }}</textarea>
                         </div>
                     </div>
+                    <input type="hidden" name="id" value="{{ $profile_form->id }}">
                     {{ csrf_field() }}
                     <input type="submit" class="btn btn-primary" value="更新">
                 </form>
