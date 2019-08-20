@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Profile;
 use App\User;
+use App\ProfileHistory;
+use Carbon\Carbon;
 
 
 class ProfileController extends Controller
@@ -57,6 +59,10 @@ class ProfileController extends Controller
         if (empty($profile)){
             abort(404);
         }
+        
+        $profilehistory = new ProfileHistory;
+        
+        
         return view('admin.profile.edit',['profile_form' => $profile, 'user'=> $user ]);
     }
     
@@ -76,6 +82,12 @@ class ProfileController extends Controller
         
         //viewファイルにカラムidが記述されているときにfillメソッドを使う
         $profile->fill($profile_form)->save();
+        
+        //以下を追記
+        $profilehistory = new ProfileHistory;
+        $profilehistory->profile_id = $profile->id;
+        //Carbonを使って取得した現在時刻を、ProfileHistoryモデルのedit_atとして記録する
+        $profilehistory->edited_at = Carbon::now();
         
         return redirect('admin/profile');
     }

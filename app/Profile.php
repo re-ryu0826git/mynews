@@ -22,5 +22,12 @@ class Profile extends Model
     {
         return $this->hasOne('App\User');
     }
+    
+    //以下を追加
+    //ProfileHistoryモデルに関連付けを行う
+    public function profilehistories()
+    {
+        return $this->hasMany('App\Profile');
+    }
         
 }
