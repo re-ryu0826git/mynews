@@ -66,8 +66,9 @@ return [
     | ahead and set this to a sensible default for you out of the box.
     |
     */
-
-    'timezone' => 'UTC',
+    
+    //タイムゾーンを日本時間へ
+    'timezone' => 'Asia/Tokyo',
 
     /*
     |--------------------------------------------------------------------------

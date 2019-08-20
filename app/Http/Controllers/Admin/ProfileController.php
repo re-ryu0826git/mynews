@@ -88,6 +88,8 @@ class ProfileController extends Controller
         $profilehistory->profile_id = $profile->id;
         //Carbonを使って取得した現在時刻を、ProfileHistoryモデルのedit_atとして記録する
         $profilehistory->edited_at = Carbon::now();
+        //データベースへ保存
+        $profilehistory->save();
         
         return redirect('admin/profile');
     }
