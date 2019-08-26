@@ -15,6 +15,7 @@
                                     {{-- 「.」は文字列を結合 --}}
                                     <img src="{{ asset('storage/image/' .$headline->image_path)}}">
                                 @else
+                                    {{-- ダミー画像 --}}
                                     <img src="http://placehold.it/300/?text=No image">
                                 @endif
                                 </div>
@@ -58,6 +59,5 @@
                 @endforeach
             </div>
         </div>
-    </div>
     </div>
 @endsection
