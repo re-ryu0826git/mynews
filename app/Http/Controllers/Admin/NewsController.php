@@ -109,7 +109,7 @@ class NewsController extends Controller
             $path = Storage::disk('s3')->putFile('/',$form['image'],'public');
             $news_form['image_path'] = Storage::disk('s3')->url($path);
         } else {
-            $news_form['image_path'] = $news->image_path;
+            $news_form['image_path'] = Storage::disk('s3')->url($path);
         }
 
         unset($news_form['_token']);
