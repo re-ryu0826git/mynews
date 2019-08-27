@@ -14,7 +14,8 @@
                                 @if ($headline->image_path)
                                     {{-- assetはpublicディレクトリのパスを返すヘルパーメソッド --}}
                                     {{-- 「.」は文字列を結合 --}}
-                                    <img src="{{ asset('storage/image/' .$headline->image_path)}}">
+                                    {{-- S3 --}}
+                                    <img src="{{ $headline->image_path }}">
                                 @else
                                     {{-- ダミー画像 --}}
                                     <img src="http://placehold.it/300/?text=No image">
@@ -51,7 +52,8 @@
                             </div>
                             <div class="image col-md-6 text-right mt-4">
                                 @if ($post->image_path)
-                                    <img src="{{ asset('storage/image/' . $post->image_path) }}">
+                                    {{-- S3 --}}
+                                    <img src="{{ $post->image_path }}">
                                 @endif
                             </div>
                         </div>
