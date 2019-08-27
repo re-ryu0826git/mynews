@@ -3,18 +3,6 @@
 /public/storage
 /storage/*.key
 /vendor
-.env
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
-/storage
-/node_modules
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
 /.idea
 /.vscode
 /.vagrant
@@ -24,3 +12,5 @@ npm-debug.log
 yarn-error.log
 .env
 .phpunit.result.cache
+/storage/app/public/*
+/storage/debugbar/*
