@@ -90,31 +90,16 @@ class NewsController extends Controller
         // 送信されてきたフォームデータを格納する
         $news_form = $request->all();
         
-        // if (isset($news_form['image'])){
-        //     $path = $request->file('image')->store('public/image');
-        //     $news->image_path = basename($path);
-        //     unset($news_form['image']);
-        // }   elseif (isset($request->remove)) {
-        //     $news->image_path = null;
-        //     unset($news_form['remove']);
-        // }
-        // unset($news_form['_token']);
-        // // 該当するデータを上書きして保存する
-        // $news->fill($news_form)->save();
-        
-        
-        if ($request->remove == 'true') {
-            $news_form['image_path'] = null;
-        } elseif ($request->file('image')) {
+        if (isset($news_form['image'])){
             $path = Storage::disk('s3')->putFile('/',$form['image'],'public');
-            $news_form['image_path'] = Storage::disk('s3')->url($path);
-        } else {
-            $news_form['image_path'] = Storage::disk('s3')->url($path);
+            $news->image_path = Storage::disk('s3')->url($path);
+            unset($news_form['image']);
+        }   elseif (isset($request->remove)) {
+            $news->image_path = null;
+            unset($news_form['remove']);
         }
-
         unset($news_form['_token']);
-        unset($news_form['image']);
-        unset($news_form['remove']);
+        // 該当するデータを上書きして保存する
         $news->fill($news_form)->save();
 
         // 以下を追記
